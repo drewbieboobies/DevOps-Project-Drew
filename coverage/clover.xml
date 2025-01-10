@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1736444745918" clover="3.2.0">
-  <project timestamp="1736444745918" name="All files">
+<coverage generated="1736451041660" clover="3.2.0">
+  <project timestamp="1736451041660" name="All files">
     <metrics statements="104" coveredstatements="46" conditionals="45" coveredconditionals="7" methods="13" coveredmethods="8" elements="162" coveredelements="61" complexity="0" loc="104" ncloc="104" packages="1" files="3" classes="3"/>
     <file name="addStudent.js" path="C:\Users\offic\OneDrive\Desktop\Work\Sem 2.2\DVOPS Project\DevOps-Project-Drew\public\js\addStudent.js">
       <metrics statements="54" coveredstatements="0" conditionals="33" coveredconditionals="0" methods="5" coveredmethods="0"/>
