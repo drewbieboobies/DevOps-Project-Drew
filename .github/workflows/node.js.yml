@@ -1,0 +1,87 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main-code
+  pull_request:
+    branches:
+      - main-code
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      AZURE_TENANT_ID: "25a99bf0-8e72-472a-ae50-adfbdf0df6f1"
+      AZURE_CLIENT_ID: "a477f37e-d9e9-4605-8633-9358deb13c04"
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      AZURE_SUBSCRIPTION_ID: "72652105-95c8-42bf-a7a7-ee6274755281"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run backend tests
+        run: npm run backend-test
+
+      - name: Run frontend instrumentation
+        run: npm run frontend-instrument
+
+      - name: Run frontend tests on Edge
+        run: npm run frontend-test-edge
+
+      - name: Run frontend tests on Chrome
+        run: npm run frontend-test-chrome
+
+      - name: Run full test suite
+        run: npm run test
+
+  docker-build-and-push:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and push Docker image
+        run: |
+          docker-compose build
+          docker-compose push
+
+  azure-deploy:
+    needs: docker-build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        run: az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+
+      - name: Check or create AKS Cluster
+        run: |
+          az aks show --resource-group rmsResourceGroup --name rmsAKSCluster -o json || \
+          az aks create --resource-group rmsResourceGroup --name rmsAKSCluster --node-count 1 --generate-ssh-keys
+
+      - name: Get AKS Credentials
+        run: az aks get-credentials --resource-group rmsResourceGroup --name rmsAKSCluster --overwrite-existing --subscription $AZURE_SUBSCRIPTION_ID
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f rms-deployment.yaml
+          kubectl apply -f rms-service.yaml
+          kubectl rollout history deployment/rms-deployment
+          kubectl get pods
+          kubectl get services
