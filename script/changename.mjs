@@ -22,20 +22,20 @@ async function configureChromeDriver() {
   return new Builder()
     .forBrowser('chrome')
     .setChromeOptions(options)
-    //.options.addArguments('--headless', '--disable-gpu')
+    .options.addArguments('--headless', '--disable-gpu')
     .setChromeService(new chrome.ServiceBuilder(CHROME_DRIVER_PATH))
     .build();
 }
 
 async function configureEdgeDriver() {
     const options = new edge.Options();
-    //options.addArguments('--headless', '--disable-gpu');
+    options.addArguments('--headless', '--disable-gpu');
     return new Builder().forBrowser('MicrosoftEdge').setEdgeOptions(options).setEdgeService(new edge.ServiceBuilder(EDGE_DRIVER_PATH)).build();
 }
 
 async function configureFirefoxDriver() {
     const options = new firefox.Options();
-    //options.addArguments('--headless', '--disable-gpu');
+    options.addArguments('--headless', '--disable-gpu');
     options.setBinary('C:/Program Files/Mozilla Firefox/firefox.exe');
     return new Builder().forBrowser('firefox').setFirefoxOptions(options).setFirefoxService(new firefox.ServiceBuilder(FIREFOX_DRIVER_PATH)).build();
 }
