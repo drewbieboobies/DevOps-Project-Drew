@@ -9,7 +9,7 @@
     "frontend-test": "rmdir -r .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run",
     "frontend-test-edge": "rmdir -r .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run --browser edge",
     "frontend-test-chrome": "rmdir -r .nyc_output & nyc --nycrc-path .nycrc-frontend cypress run --browser chrome",
-    "test": "mocha script/changename.mjs --loader esm"
+    "test": "npx mocha script/changename.mjs"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,7 @@
     "cypress": "^13.16.1",
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
-    "mocha": "^4.0.1",
+    "mocha": "^4.3.4",
     "chai-http": "^4.3.0",
     "nyc": "^17.1.0",
     "selenium-webdriver": "^4.27.0",
