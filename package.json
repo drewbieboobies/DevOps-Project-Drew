@@ -20,7 +20,7 @@
     "cypress": "^13.16.1",
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
-    "mocha": "^4.3.4",
+    "mocha": "^4.0.1",
     "chai-http": "^4.3.0",
     "nyc": "^17.1.0",
     "selenium-webdriver": "^4.27.0",
