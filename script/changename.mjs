@@ -17,14 +17,9 @@ let baseUrl = 'http://localhost:5050'; // Change this if needed
 
 // Configure Chrome WebDriver
 async function configureChromeDriver() {
-  const options = new chrome.Options();
-  
-  return new Builder()
-    .forBrowser('chrome')
-    .setChromeOptions(options)
-    .options.addArguments('--headless', '--disable-gpu')
-    .setChromeService(new chrome.ServiceBuilder(CHROME_DRIVER_PATH))
-    .build();
+    const options = new chrome.Options();
+    options.addArguments('--headless', '--disable-gpu'); // removes the browser popup
+    return new Builder().forBrowser('chrome').setChromeOptions(options).setChromeService(new chrome.ServiceBuilder(CHROME_DRIVER_PATH)).build();
 }
 
 async function configureEdgeDriver() {
