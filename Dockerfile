@@ -9,4 +9,8 @@ COPY . .
 # Expose the port your app runs on
 EXPOSE 5050
 # Define the command to run your app
-CMD [ "node", "index.js" ]
+RUN npm install pm2 -g
+ENV PM2_PUBLIC_KEY 84mgi6myoudbww7
+ENV PM2_SECRET_KEY x6m17guupnbtdoa
+
+CMD ["pm2-runtime", "index.js" ]
