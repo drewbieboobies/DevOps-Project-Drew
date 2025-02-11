@@ -9,3 +9,9 @@ error: Example or error log {"timestamp":"2025-02-10T23:10:32.135Z"}
 info: Server started on port 5050 {"timestamp":"2025-02-10T23:13:07.741Z"}
 info: Demo project at: http://localhost:5050! {"timestamp":"2025-02-10T23:13:30.891Z"}
 error: Example or error log {"timestamp":"2025-02-10T23:13:30.899Z"}
+info: Demo project at: http://0.0.0.0:5050! {"timestamp":"2025-02-11T05:25:09.806Z"}
+error: Example or error log {"timestamp":"2025-02-11T05:25:09.809Z"}
+info: Demo project at: http://0.0.0.0:5050! {"timestamp":"2025-02-11T05:25:58.519Z"}
+error: Example or error log {"timestamp":"2025-02-11T05:25:58.521Z"}
+info: Demo project at: http://localhost:5050! {"timestamp":"2025-02-11T05:26:46.683Z"}
+error: Example or error log {"timestamp":"2025-02-11T05:26:46.687Z"}

@@ -65,7 +65,7 @@ app.put('/students/:id', updateStudent);
 // Endpoint to get a single student by ID
 app.get('/students/:id', getStudentById);
 
-server = app.listen(PORT, "0.0.0.0", function () {
+server = app.listen(PORT, function () {
     const address = server.address();
     const baseUrl = `http://${address.address == "::" ? 'localhost' :
         address.address}:${address.port}`;
