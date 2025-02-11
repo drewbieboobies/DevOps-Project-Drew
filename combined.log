@@ -1,2 +1,11 @@
 info: Demo project at: http://localhost:5050! {"timestamp":"2025-02-07T10:26:32.205Z"}
 error: Example or error log {"timestamp":"2025-02-07T10:26:32.207Z"}
+info: Demo project at: http://localhost:5050! {"timestamp":"2025-02-10T15:11:40.158Z"}
+error: Example or error log {"timestamp":"2025-02-10T15:11:40.161Z"}
+info: Demo project at: http://localhost:5050! {"timestamp":"2025-02-10T15:11:53.649Z"}
+error: Example or error log {"timestamp":"2025-02-10T15:11:53.652Z"}
+info: Demo project at: http://0.0.0.0:5050! {"timestamp":"2025-02-10T23:10:32.098Z"}
+error: Example or error log {"timestamp":"2025-02-10T23:10:32.135Z"}
+info: Server started on port 5050 {"timestamp":"2025-02-10T23:13:07.741Z"}
+info: Demo project at: http://localhost:5050! {"timestamp":"2025-02-10T23:13:30.891Z"}
+error: Example or error log {"timestamp":"2025-02-10T23:13:30.899Z"}

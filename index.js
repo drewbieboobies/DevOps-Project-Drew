@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require("body-parser");
 
-
 const { addStudent } = require('./utils/addStudentUtil');
 const { updateStudent, readAllStudents, getStudentById } = require('./utils/updateStudentUtil');
 
@@ -11,6 +10,33 @@ var app = express();
 const logger = require('./logger');
 const PORT = process.env.PORT || 5050;
 var startPage = "course.html";
+
+const client = require('prom-client');
+
+// Create a new Prometheus registry
+const register = new client.Registry();
+
+// Create a counter metric
+const httpRequestsTotal = new client.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+});
+
+// Register the metric
+register.registerMetric(httpRequestsTotal);
+
+// Middleware to count requests
+app.use((req, res, next) => {
+    httpRequestsTotal.inc();
+    next();
+});
+
+// Expose metrics endpoint for Prometheus
+app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+});
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -39,7 +65,7 @@ app.put('/students/:id', updateStudent);
 // Endpoint to get a single student by ID
 app.get('/students/:id', getStudentById);
 
-server = app.listen(PORT, function () {
+server = app.listen(PORT, "0.0.0.0", function () {
     const address = server.address();
     const baseUrl = `http://${address.address == "::" ? 'localhost' :
         address.address}:${address.port}`;
